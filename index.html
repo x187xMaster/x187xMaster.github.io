@@ -1,9 +1,158 @@
-<html>
+<!DOCTYPE html>
+<!-- panda studio / Animated Stream Overlays EN v1.0 (2026-09-03) | 12 themes x 4 screens = 48 screens | Changelog: README.md -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ending — KAWAII Overlay</title>
+<script>
+// ================================================================
+// ★ EDIT HERE — change these values to make this overlay yours ★
+// ================================================================
+const CONFIG = {
+  streamerName: "YOUR NAME",
+  message:      "Thanks for hanging out!",
+  submessage:   "See you next time~",
+  accent:       "#ff8fb8",
+  accent2:      "#a78bfa",
+  socials: [
+    ["X (Twitter)", "@yourname"],
+    ["YouTube",     "@yourchannel"],
+  ],
+};
 
+/* Hosted version (panda studio, 2026-09-04).
+   The zip ships 12 folders. Here the theme is the folder in the URL:
+     /w/overlay/<theme>/starting.html
+   The 12 themes are not just color swaps (sakura uses --sakura/--gold,
+   minimal uses --ink), so they are kept as separate files rather than
+   recolored from one. Text is set with query parameters:
+     ?name=YOUR%20NAME&msg=Back%20soon&start=21:00&x=@you&yt=@you&tw=@you */
+(function(){
+  var P=new URLSearchParams(location.search);
+  if(P.get("name"))  CONFIG.streamerName = P.get("name");
+  if(P.get("msg"))   CONFIG.message      = P.get("msg");
+  if(P.get("start")) CONFIG.startTime    = P.get("start");
+  if(P.get("accent"))  CONFIG.accent  = P.get("accent");
+  if(P.get("accent2") && "accent2" in CONFIG) CONFIG.accent2 = P.get("accent2");
+  var soc=[];
+  if(P.get("x"))  soc.push(["X (Twitter)", P.get("x")]);
+  if(P.get("yt")) soc.push(["YouTube", P.get("yt")]);
+  if(P.get("tw")) soc.push(["Twitch", P.get("tw")]);
+  if(soc.length) CONFIG.socials = soc;
+})();
+// ================================================================
+</script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --pk: #ff8fb8; --pu: #a78bfa; }
+  html, body { width: 100%; height: 100%; overflow: hidden; }
+  body {
+   background-image: url("galaxy.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  font-family: "Hiragino Maru Gothic ProN", "Hiragino Kaku Gothic ProN", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;;
+  }
+
+  /* ---- confetti hearts rain ---- */
+  .cf { position: absolute; top: -8vh; animation: fall linear infinite; }
+  @keyframes fall {
+    0%   { transform: translateY(0) rotate(-12deg); opacity: 0; }
+    8%   { opacity: .85; }
+    100% { transform: translateY(120vh) rotate(24deg); opacity: 0; }
+  }
+  .background-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 10, 40, 0.35);
+  z-index: 0;
+  pointer-events: none;
+}
+
+  .stage {
+  text-align: center;
+  z-index: 3;
+  position: relative;
+}
+  .label {
+    display: inline-block;
+    font-size: 2vh; letter-spacing: .8vh; color: #fff;
+    background: linear-gradient(90deg, var(--pk), var(--pu));
+    padding: 1.1vh 3vw; border-radius: 4vh;
+    text-transform: uppercase; margin-bottom: 3.2vh; font-weight: 800;
+    box-shadow: 0 .8vh 2vh rgba(167,139,250,.35);
+  }
+  h1 {
+    font-size: 8vh; font-weight: 900;
+    background: linear-gradient(90deg, var(--pk), var(--pu));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: bounce 2.6s ease-in-out infinite;
+  }
+  @keyframes bounce { 50% { transform: translateY(-1vh); } }
+  .sub { font-size: 3vh; color: #a06a85; margin-top: 2.4vh; font-weight: 600; }
+
+  .name {
+    display: inline-block; margin-top: 4.6vh; padding: 1.7vh 5vw;
+    background: #fff; border: .45vh solid var(--pk);
+    border-radius: 6vh;
+    color: #8a5a75; font-size: 3.4vh; font-weight: 900;
+    box-shadow: 0 1.2vh 3vh rgba(255,143,184,.3);
+  }
+  .name i { font-style: normal; color: var(--pk); animation: beat 1.4s ease-in-out infinite; display: inline-block; }
+  @keyframes beat { 30% { transform: scale(1.3); } }
+
+  .socials { display: flex; gap: 2vw; justify-content: center; margin-top: 5.2vh; }
+  .card {
+    padding: 2vh 2.8vw; min-width: 15vw;
+    background: #fff; border: .4vh solid var(--pu);
+    border-radius: 2.6vh;
+    box-shadow: 0 1vh 2.6vh rgba(167,139,250,.25);
+    animation: floaty 3.6s ease-in-out infinite;
+  }
+  .card:nth-child(2) { animation-delay: 1.2s; border-color: var(--pk); box-shadow: 0 1vh 2.6vh rgba(255,143,184,.25); }
+  .card:nth-child(3) { animation-delay: 2.4s; }
+  @keyframes floaty { 50% { transform: translateY(-1.3vh); } }
+  .card b { display: block; color: var(--pu); font-size: 1.9vh; margin-bottom: .8vh; font-weight: 900; }
+  .card span { color: #8a5a75; font-size: 2.5vh; font-weight: 700; }
+</style>
+</head>
 <body>
-  <h1>YOUR WORST NIGHTMARE </h1>
-  <p>SUH MAH DEE, NERD. Here's some ice cream</p>
-  <img src="https://content.codecademy.com/articles/github-pages-via-web-app/happy-ice-cream.gif" />
-</body>
+  <div class="background-overlay"></div>
+  <div class="stage">
+    <div class="label">Thank You For Watching</div>
+    <h1 id="msg"></h1>
+    <div class="sub" id="sub"></div>
+    <div><span class="name"><i>♥</i> <span id="name"></span> <i>♥</i></span></div>
+    <div class="socials" id="socials"></div>
+  </div>
 
+<script>
+  document.documentElement.style.setProperty('--pk', CONFIG.accent);
+  document.documentElement.style.setProperty('--pu', CONFIG.accent2);
+  document.getElementById('msg').textContent  = CONFIG.message;
+  document.getElementById('sub').textContent  = CONFIG.submessage;
+  document.getElementById('name').textContent = CONFIG.streamerName;
+
+  document.getElementById('socials').innerHTML = CONFIG.socials
+    .map(([k, v]) => `<div class="card"><b>${k}</b><span>${v}</span></div>`).join('');
+
+  const emo = ['♥','★','✦','♪'];
+  const cols = [CONFIG.accent, CONFIG.accent2, '#ffd6e8', '#ffe9a8'];
+  for (let i = 0; i < 30; i++) {
+    const d = document.createElement('div');
+    d.className = 'cf';
+    d.textContent = emo[i % emo.length];
+    d.style.color = cols[i % cols.length];
+    d.style.fontSize = (2 + Math.random() * 3.2) + 'vh';
+    d.style.left = Math.random() * 98 + 'vw';
+    d.style.animationDuration = (5.5 + Math.random() * 7) + 's';
+    d.style.animationDelay = (-Math.random() * 12) + 's';
+    document.body.appendChild(d);
+  }
+</script>
+</body>
 </html>
